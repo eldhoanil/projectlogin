@@ -15,6 +15,9 @@ div{
   padding: 50px;
 }
 </style>
+<script src = "login.js" type="text/javascript">
+</script>
+
 <script>
 $(document).ready(function(){
   $("#backtohome").click(function(){
@@ -23,13 +26,46 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<span>Welcome : <%= profileData.name %> Your profile is Completed following is your details<br></span>
-<div>
-            
-            Coordinate_One:   <%= profileData.coordinate_one %><br>
-            Coordinate_Two:   <%= profileData.coordinate_two %><br>
+<span>Welcome : <%= profileData.name %> Your land details<br></span>
+<ul>
+<% profileData.forEach(function(question) { %>
+    <li>landid: <%= question.landid %>  </li>
+    <li>ownedaddress: <%= question.ownedaddress %></li>
+     <li>prevownname: <%= question.prevownname %></li>
+     <li>cordone: <%= question.cordone %></li>
+     <li>cordtwo: <%= question.cordtwo %></li>
+     <li>area: <%= question.area %></li>
+     <li>taxstat: <%= question.taxstat %></li>
+     <li>liabstat: <%= question.liabstat %></li>
+     <li>price: <%= question.price %></li>
+ </br>
+
+
+
+<% }); %>
+</ul>
+<!-- <div>
+            Land ID:   <%= profileData.landid %> <br>
+            Coordinate One:   <%= profileData.cordone %><br>
+            Coordinate_ Two:   <%= profileData.cordtwo %><br>
             Area:             <%= profileData.area %><br>
-           
+            Tax paid:   <%= profileData.taxstat %><br>
+            Liability:   <%= profileData.liabstat %><br>
+            Price:   <%= profileData.price %><br> -->
+
+<div id="saleDiv"> 
+  <p>
+    <label class="w3-text-blue" ><b>LAND ID </b></label>
+    <input class="w3-input w3-border" name="landid" type="Number" id ="landid"></p>
+    <button class="w3-btn w3-blue" id="sellBtn">sell</button></p>
+</div>  
+
+<div id = "cancelDiv">
+  <p>
+    <label class="w3-text-blue" ><b>LAND ID </b></label>
+    <input class="w3-input w3-border" name="landidd" type="Number" id ="landidd"></p>
+    <button class="w3-btn w3-blue" id="cancelBtn">cancel sale</button></p>
+</div>
 <div>
 <button class="w3-btn w3-blue" id="backtohome">Back to Home</button></p>
 </body>

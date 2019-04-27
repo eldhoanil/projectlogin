@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<style>
+span{
+  font-size: 25px;
+  color: #ffff;
+  background-color: #2881DB;
+  padding: 10px;
+
+}
+div{
+  font-size: 25px;
+  color: #ffff;
+  background-color: #2881DB;
+  padding: 50px;
+}
+</style>
+<script src = "login.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+  $("#backtohome").click(function(){
+    window.location.href='/';
+  });
+});
+</script>
+<body>
+  <span>Welcome : <%= profileData.name %> to sales page<br></span>
+<div>       Land ID:   <%= profileData.landid %><br>
+            Coordinate One:   <%= profileData.cordone %><br>
+            Coordinate_ Two:   <%= profileData.cordtwo %><br>
+            Area:             <%= profileData.area %><br>
+            Tax paid:   <%= profileData.taxstat %><br>
+            Liability:   <%= profileData.liabstat %><br>
+            Price:   <%= profileData.price %><br>
+
+
+<div id ="cancelDiv">
+<button class="w3-btn w3-blue" id="cancelBtn">cancel</button></p>
+
+<button class="w3-btn w3-blue" id="backtohome">Back to Home</button></p>
+</body>
+</html>

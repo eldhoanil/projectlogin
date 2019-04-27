@@ -24,16 +24,29 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<span>Welcome : <%= profileData.name %> Your profile is Completed following is your details<br></span>
+<span>Welcome : <%= profileData.name %> <br></span>
 <div>
             Email:     <%= profileData.email %><br>
             Phone:    <%= profileData.phone %><br>
             Aadhaar:     <%= profileData.aadhaar %><br>
 </div>
 
-<div id="saleDiv" >
-  <button class="w3-btn w3-blue" id ="saleBtn">sell land</button></p>
+<div id="viewDiv" >
+  <button class="w3-btn w3-blue" id ="viewBtn">my property</button></p>
 </div>
+<!-- <div id="publicDiv">
+  <button class="w3-btn w3-blue" id ="publicBtn">public</button></p>
+</div> -->
+<div id="addDiv">
+  <button class="w3-btn w3-blue" id ="addBtn">add buyer</button></p>
+</div>
+<div id="changeprice">
+  <button class="w3-btn w3-blue" id ="changepriceBtn">changeprice</button></p>
+</div>
+<div id="payDiv">
+  <button class="w3-btn w3-blue" id ="pBtn">property that you want to buy</button></p>
+</div>
+
 <div>
 <button class="w3-btn w3-blue" id="backtohome">Back to Home</button></p>
 </body>

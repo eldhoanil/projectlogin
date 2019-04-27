@@ -1,0 +1,35 @@
+<html>
+<title>yet to pproved Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src = "login.js" type="text/javascript"></script>
+
+<body class="w3-container w3-margin">
+
+  <!--<h2 class="w3-text-blue">Welcome to Public Land Details</h2>
+   <a href="/public"> data</a> -->
+  <div >
+  	<ul>
+<% questions.forEach(function(question) { %>
+    <li>landid: <%= question.landid %>  </li>
+    <li>ownedaddress: <%= question.ownedaddress %></li>
+     <li>prevownname: <%= question.prevownname %></li>
+     <li>cordone: <%= question.cordone %></li>
+     <li>cordtwo: <%= question.cordtwo %></li>
+     <li>area: <%= question.area %></li>
+     <li>buyer name: <%= question.buyername %></li>
+
+ </br>
+
+ <p id ="yetaddDiv">
+    <label class="w3-text-white" ><b>Enter land id to approve</b></label>
+    <input class="w3-input w3-border" name="aname" type="text" id ="aname"></p>
+    <button class="w3-btn w3-blue" id="yetaddform">Approve</button></p>
+
+
+<% }); %>
+</ul>
+  </div>
+<body>
+</html>

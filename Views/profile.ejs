@@ -17,23 +17,20 @@ span{
 <script>
 </script>
 <body>
- 
-<span>Hello <%= loginData.name %> ! Complete your profile
-  </span>
-  <input type="hidden" name="name" value=<%= loginData.name %> id ="name">
-  <input type="hidden" name="pass" value=<%= loginData.pass %> id = "pass">
 
   <p>
     <label class="w3-text-blue"><b>Email</b></label>
-    <input class="w3-input w3-border" name="email" type="text" id ="email"></p>
+    <input class="w3-input w3-border" name="email" type="text"  id ="email"></p>
     <p>
     <label class="w3-text-blue" id = "pass"><b>Mobile Number</b></label>
-    <input class="w3-input w3-border" name="phone" type="text" id ="phone"></p>
+    <input class="w3-input w3-border" name="phone" type="Number" id ="phone"></p>
     <p>
     <label class="w3-text-blue" id = "pass"><b>Aadhaar Number</b></label>
-    <input class="w3-input w3-border" name="aadhaar" type="text" id ="aadhaar"></p>
-    
-      <p>
+    <input class="w3-input w3-border" name="aadhaar" type="Number" id ="aadhaar"></p>
+    <p>
+    <label class="w3-text-blue" id = "pass"><b>Password</b></label>
+    <input class="w3-input w3-border" name="pass" type="password" id ="upass"></p>
+    <p>
     <button class="w3-btn w3-blue" id="saveBtn">Save</button></p>
 
 </body>
