@@ -105,7 +105,8 @@ $(document).ready(function(){
           type : 'GET',
           url : '/userr',
           success: function(data){
-            $("#userDiv").html(data);
+            //changed
+            $("#homeDiv").html(data);
           }
       });
   
@@ -115,7 +116,8 @@ $(document).ready(function(){
           type : 'GET',
           url : '/nota',
           success: function(data){
-            $("#notaDiv").html(data);
+            //changed
+            $("#homeDiv").html(data);
           }
       });
   
@@ -125,7 +127,8 @@ $(document).ready(function(){
           type : 'GET',
           url : '/login',
           success: function(data){
-            $("#loginDiv").html(data);
+            //changed
+            $("#mainDiv").html(data);
           }
       });
    //window.location="login"
@@ -278,7 +281,8 @@ $(document).ready(function(){
          url : '/regiterToDb',
          /*data : regData,*/
          success: function(data){
-         $("#regDiv").html(data);
+          //changed
+         $("#mainDiv").html(data);
          }
        });
    });

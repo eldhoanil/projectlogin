@@ -6,6 +6,8 @@ var url = 'mongodb://localhost:27017/mydb';
 var urll = 'mongodb://localhost:27017/property';
 var url2 = 'mongodb://localhost:27017/sell';
 var url3 ='mongodb://localhost:27017/AdharDatabase';
+//changed
+var url4 ='mongodb://localhost:27017/Bankdatabase';
 
 //var nurl = 'mongodb://localhost:27017/notary';
 var fs= require("fs");
@@ -82,14 +84,35 @@ app.post('/demo1',urlencodedParser,function(req,res){
  });
 // changeprice TO DB==================================================================
   app.post('/changeprice',urlencodedParser,function(req,res){
-
+//changed
     var price1=req.body.price;
     var landid=req.body.landid;
-    console.log(price1);
-    console.log(landid);
+    MongoClient.connect(url2, function(err, db) {
+   db.collection('propsell').findOne({ landid: req.body.landid}, function(err, user) {
+             if(user ===null){
+              res.send("this land is not for sale");
+             }
+             else if(userAadhaarno!==user.Aadhaarno){
+              res.send("this is not your land");
+
+             }
+             else if(user.buyername!==" "){
+              res.send("buyer is added you cannot change price");
+             }
+             else{
+              var myquery = { price:user.price };
+              var newvalues = { landid:user.landid,Aadhaarno:user.Aadhaarno,ownedaddress:user.ownedaddress,prevownname:user.prevownname,cordone:user.cordone,cordtwo:user.cordtwo,area:user.area,taxstat:user.taxstat,liabstat:user.liabstat,price:req.body.price,buyername: user.buyername,approved:'true'};
+              db.collection("propsell").updateOne(myquery, newvalues, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+              });
     res.send("price has changed");
+  }
    
 });
+ });
+  });
 
 // Login TO DB==================================================================
   app.post('/demo',urlencodedParser,function(req,res){
@@ -292,36 +315,58 @@ app.post('/cancel',urlencodedParser,function(req,res){
                res.send("your land is not for sale now");
             }else {
               db.collection('propsell').remove({landid:user.landid}, function(err, results) {
-
+                 res.send("your land is removed from sale");
             console.log(results.result);
         });
-        res.send("your land is removed from sale");
+       
         db.close();
     }
 });
     });
-    // });
  });
 
 app.post('/addb',urlencodedParser,function(req,res){
- 
-   MongoClient.connect(url2, function(err, db) {
-    db.collection('propsell').findOne({ landid: req.body.landidd}, function(err, user) {
+ //changed
+   MongoClient.connect(url2, function(err, db1) {
+    db1.collection('propsell').findOne({ landid: req.body.landidd}, function(err, user) {
     
-              
-            //  if(user ===null)
-            //  {
-            //    res.end(" invalid landid");
-            // }
-            if (err) throw err;
-  var myquery = { buyername: "" };
-  var newvalues = { landid:user.landid,Aadhaarno:user.Aadhaarno,ownedaddress:user.ownedaddress,prevownname:user.prevownname,cordone:user.cordone,cordtwo:user.cordtwo,area:user.area,taxstat:user.taxstat,liabstat:user.liabstat,price:user.price,buyername: req.body.buyername,approved:user.approved};
-  db.collection("propsell").updateOne(myquery, newvalues, function(err, res) {
-    if (err) throw err;
-    console.log("1 document updated");
-    db.close();
-  });
-  res.end("buyer is added");
+              //changed
+              if(user ===null)
+              {
+                res.end(" this land is not for sale");
+             }
+            else if (userAadhaarno!==user.Aadhaarno) {
+              res.end("you are not the owner of this land");
+
+            }
+      else{
+            MongoClient.connect('mongodb://localhost:27017/Bankdatabase', function(err, db) {
+             db.collection('bank').findOne({ name: req.body.buyername}, function(err, suser) {
+              console.log(req.body.buyername);
+              console.log(suser);
+              if(suser === null)
+              {res.send("he is not a buyer");
+              }
+              else if(suser.balance<user.price)
+              {
+                res.send("buyer has not sufficient balance");
+              }
+              else {
+
+            var myquery = { buyername:" " };
+            var newvalues = { landid:user.landid,Aadhaarno:user.Aadhaarno,ownedaddress:user.ownedaddress,prevownname:user.prevownname,cordone:user.cordone,cordtwo:user.cordtwo,area:user.area,taxstat:user.taxstat,liabstat:user.liabstat,price:user.price,buyername: req.body.buyername,approved:user.approved};
+            db1.collection("propsell").updateOne(myquery, newvalues, function(err, res) {
+              if (err) throw err;
+              console.log(user);
+              console.log("1 document updated");
+              db.close();
+              db1.close();
+            });
+            res.end("buyer is added");
+          }
+        });
+           });
+}
 });
   });
  });
@@ -354,37 +399,46 @@ app.post('/approveb',urlencodedParser,function(req,res){
 
 //insert into sell database==============================
 app.post('/gemo',urlencodedParser,function(req,res){
-   // fs.readFile('test.txt', 'utf8', function(err, data) {  
-   //  if (err) throw err;
-   //  console.log(data);
    MongoClient.connect(urll, function(err, db) {
    
 
     db.collection('own_property').findOne({landid: req.body.landid},function(err, user) {
-           if (err) throw err;
-           var ob_data={'landid':user.landid,'Aadhaarno':user.Aadhaarno,'ownedaddress':user.ownedaddress,'prevownname':user.prevownname,'cordone':user.cordone,'cordtwo':user.cordtwo,'area':user.area,'taxstat':user.taxstat,'liabstat':user.liabstat,'price':user.price,'buyername': " ",'approved':'false'}
+      //changed
+      if(user=== null)
+      {
+        res.send("print you dont own this property");
+      }
+      else{
+          var ob_data={'landid':user.landid,'Aadhaarno':user.Aadhaarno,'ownedaddress':user.ownedaddress,'prevownname':user.prevownname,'cordone':user.cordone,'cordtwo':user.cordtwo,'area':user.area,'taxstat':user.taxstat,'liabstat':user.liabstat,'price':user.price,'buyername': " ",'approved':'false'}
            var obj1=JSON.stringify(ob_data);
-           res.send("your land is for sale now")
+          console.log("Final reg Data : "+obj1);
+          var jsonObj = JSON.parse(obj1);
+         MongoClient.connect('mongodb://localhost:27017/sell', function(err, db) {
+          //changed
+        db.collection("propsell").findOne({landid: req.body.landid},function(err, suuser) {
+           if (suuser === null)
+           {
+            db.collection("propsell").insertOne(jsonObj, function(err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            
+
+           });
+          }
+          else{
+      res.send("already the land is for sale ");
+    }
      db.close();
-           
-         
-    console.log("Final reg Data : "+obj1);
-   var jsonObj = JSON.parse(obj1);
-      MongoClient.connect('mongodb://localhost:27017/sell', function(err, db) {
-      db.collection("propsell").insertOne(jsonObj, function(err, res) {
-     if (err) throw err;
-     console.log("1 document inserted");
-     db.close();
+   });
 
       });
-});
+}
 
   });
 
  });
 
  });
-
 //register profile to MongoDB================================================================
   app.post('/completeprofile',urlencodedParser,function(req,res){
   MongoClient.connect(url3, function(err, db) {
